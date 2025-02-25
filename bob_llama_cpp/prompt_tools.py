@@ -136,8 +136,8 @@ def detect_and_process_tool_calls(
         global tool_functions
         calls = []
         count = 0
-        logging.info(f"detect_and_process_tool_calls: {text}")
-        logging.info(f"detect_and_process_tool_calls: Rest: " + parse_tool_calls(text, calls))
+        logging.debug(f"detect_and_process_tool_calls: {text}")
+        logging.debug(f"detect_and_process_tool_calls: Rest: " + parse_tool_calls(text, calls))
 
         for tool in calls:
             logging.info(f"detect_and_process_tool_calls: tool {tool}")
