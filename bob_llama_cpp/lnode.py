@@ -21,12 +21,13 @@ from rclpy.lifecycle.node import TransitionCallbackReturn
 class LNode(LifecycleNode):
     """
     Simple LifecycleNode default wrapper.
-    It can be used as a replacement for the standard rclpy.Node to turn any existing normal ROS Node into a lifecycle ROS node.
-    Handles the basic LifecycleNode events `configure`, `cleanup"` and  `shutdown`.
-    The functions `configure` and `destroy` have to be overidden in order to use it. 
-    Everything important in the rclpy.Node __init__ function need to go into overidden `configure` function.
-    In the overidden `destroy` function resources, like subscribers etc,  have to be released.
-
+    It can be used as a replacement for the standard rclpy.Node to turn any 
+    existing normal ROS Node into a lifecycle ROS node. Handles the basic 
+    LifecycleNode events `configure`, `cleanup"` and  `shutdown`.
+    The functions `configure` and `destroy` have to be overidden in order to 
+    use it. Everything important in the rclpy.Node __init__ function need to 
+    go into overidden `configure` function. In the overidden `destroy` 
+    function resources, like subscribers etc,  have to be released.
     """
     def __init__(self, node_name, *, enable_communication_interface: bool = True, **kwargs):
         """
