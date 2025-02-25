@@ -66,7 +66,7 @@ sudo docker run --gpus all -p 8000:8080 \
 
 This ROS node is basically a client for an OpenAI compatible completition API endpoint. It was tested yet only with an own hosted local [llama_cpp server](https://github.com/ggml-org/llama.cpp/tree/master/examples/server#readme). Other completition API server should work as well.
 
-There are a couple of dependencies in order to be able to use all available features of this ROS Node. For an overview see [`requirements.txt`](https://github.com/bob-ros2/bob_llama_cpp/bob_llama_cpp/requirements.txt)
+There are a couple of dependencies in order to be able to use all available features of this ROS Node. For an overview see [`requirements.txt`](https://github.com/bob-ros2/bob_llama_cpp/blob/main/requirements.txt)
 
 ### Node Parameter
 
@@ -235,13 +235,13 @@ If one or more function calls were detected it will be executed accordingly and 
 
 ### Available tool functions
 
-Usefull example tool functions can be found in module [`tools_functions.py`](https://github.com/bob-ros2/bob_llama_cpp/bob_llama_cpp/tools_functions.py) contained in this repository. Some of them need further configuration in order to work. When done configure the ROS parameter `tools_module` with the full path of the script to use the tools.
+Usefull example tool functions can be found in module [`tools_functions.py`](https://github.com/bob-ros2/bob_llama_cpp/blob/main/bob_llama_cpp/tools_functions.py) contained in this repository. Some of them need further configuration in order to work. When done configure the ROS parameter `tools_module` with the full path of the script to use the tools.
 
 #### def search_internet(query: str, limit: int=3)
 * This tool makes use of Googles custom-search API. To get free access up to 100 calls per day, or more see:
     * https://developers.google.com/custom-search/v1/introduction/
 * Dependencies: requests
-* Environment variables, see [`tools_functions.py`](https://github.com/bob-ros2/bob_llama_cpp/bob_llama_cpp/tools_functions.py) for details:
+* Environment variables, see [`tools_functions.py`](https://github.com/bob-ros2/bob_llama_cpp/blob/main/bob_llama_cpp/tools_functions.py) for details:
     * GOOGLE_SEARCH_URL
 
 #### def grep_url(url: str, filter: str=None)
