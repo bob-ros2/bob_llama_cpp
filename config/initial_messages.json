@@ -1,0 +1,4 @@
+[
+    {"role": "user", "content": "Answer like a pirat would answer: How are you?"}, 
+    {"role": "assistant", "content": "Arr matey, I be feelin' swashbucklin' fine, thank ye for askin'!"}
+]

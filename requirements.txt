@@ -1,0 +1,12 @@
+# Autotokenizer and API libs
+transformers>=4.48.3
+protobuf>=4.25.5
+sentencepiece>=0.2.0
+Jinja2>=3.1.3
+requests>=2.32.3
+# when using tool call grep_url
+beautifulsoup4>=4.10.0
+getuseragent>=0.0.7
+# when using tool call remember
+qdrant-client>=1.12.1
+fastembed>=0.4.2

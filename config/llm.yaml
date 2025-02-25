@@ -1,0 +1,53 @@
+/**/llm/llm:
+  ros__parameters:
+    api_url: http://localhost:8000
+    eof_indicator: ''
+    min_p: 0.05
+    model_id: mistralai/Mistral-7B-Instruct-v0.3
+    #mistralai/Mistral-Small-24B-Instruct-2501
+    #model_id: NousResearch/Hermes-2-Pro-Llama-3-8B
+    n_predict: 1024
+    repeat_last_n: 64
+    repeat_penalty: 1.1
+    system_prompt: ''
+    chat_history: true
+    temperature: 0.3
+    tools_module: ''
+    tools_prompt_repeat: false
+    top_k: 40
+    top_p: 0.9
+    prompt: "{0}\n"
+    stop_tokens:
+    - stop
+    - shutup
+    - quit
+    #initial_messages: ./initial_messages.json
+    #initial_messages: '[
+    #  { "role": "user", "content": "Answer like a pirat would answer: How are you?"},
+    #  { "role": "assistant", "content": "Arr matey, I be feelin swashbucklin fine, thank ye for askin!"}
+    #  ]'
+    use_sim_time: false
+
+/**/llm/terminal:
+  ros__parameters:
+    title: LLM Terminal
+    display: -1
+    fontname: courier
+    fontsize: 15
+    frameless: false
+    input: true
+    line_count: 0
+    opacity: 1.0
+    stylesheet: 'background-color: black; color: #e9e9e9;'
+    stylesheet_window: 'background-color: #ff8c00; color white;'
+    geometry:
+    - 0
+    - 0
+    - 1000
+    - 480
+    margin:
+    - 10
+    - 0
+    - 0
+    - 0
+    use_sim_time: false
