@@ -66,7 +66,35 @@ sudo docker run --gpus all -p 8000:8080 \
 
 This ROS node is basically a client for an OpenAI compatible completition API endpoint. It was tested yet only with an own hosted local [llama_cpp server](https://github.com/ggml-org/llama.cpp/tree/master/examples/server#readme). Other completition API server should work as well.
 
+### Dependencies
 There are a couple of dependencies in order to be able to use all available features of this ROS Node. For an overview see [`requirements.txt`](https://github.com/bob-ros2/bob_llama_cpp/blob/main/requirements.txt)
+
+### Starting the LLM client
+To run the client a completition endpoint must be available. The default url is: http://localhost:8000
+
+```bash
+# Start the LLM client with a terminal to 
+# communicate with the completition endpoint
+ros2 launch bob_llama_cpp llm.launch.py terminal:=true
+
+# start with custom nodes configuration
+ros2 launch bob_llama_cpp llm.launch.py \
+    terminal:=true \
+    config_yaml:=my_nodes_config.yaml
+
+# just run the node with configuration
+ros2 run bob_llama_cpp llm \
+    --ros-args \
+    --params-file my_nodes_config.yaml
+
+# run the node with parameter and remap topics
+ros2 run bob_llama_cpp llm \
+    --ros-args \
+    -p temperature:=0.9 \
+    -p system_prompt:="<s>[SYSTEM_PROMPT]Answer like a pirate whould answer[/SYSTEM_PROMPT]" \
+    -r llm_in:=stt_out \
+    -r llm_sentence:=stt_topic
+```
 
 ### Node Parameter
 
