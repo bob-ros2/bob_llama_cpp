@@ -73,24 +73,25 @@ There are a couple of dependencies in order to be able to use all available feat
 To run the client a completition endpoint must be available. The default url is: http://localhost:8000
 
 ```bash
-# Start the LLM client with a terminal to 
+# launch the LLM client with a terminal to 
 # communicate with the completition endpoint
 ros2 launch bob_llama_cpp llm.launch.py terminal:=true
 
-# start with custom nodes configuration
+# launch with custom nodes configuration
 ros2 launch bob_llama_cpp llm.launch.py \
     terminal:=true \
     config_yaml:=my_nodes_config.yaml
 
-# just run the node with configuration
+# just run the node with configuration file
 ros2 run bob_llama_cpp llm \
     --ros-args \
-    --params-file my_nodes_config.yaml
+    --params-file my_node_config.yaml
 
 # run the node with parameter and remap topics
 ros2 run bob_llama_cpp llm \
     --ros-args \
     -p temperature:=0.9 \
+    -p model_id:=mistralai/Mistral-Small-24B-Instruct-2501 \
     -p system_prompt:="<s>[SYSTEM_PROMPT]Answer like a pirate whould answer[/SYSTEM_PROMPT]" \
     -r llm_in:=stt_out \
     -r llm_sentence:=stt_topic
