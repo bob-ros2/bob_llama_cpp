@@ -92,7 +92,7 @@ ros2 run bob_llama_cpp llm \
     --ros-args \
     -p temperature:=0.9 \
     -p model_id:=mistralai/Mistral-Small-24B-Instruct-2501 \
-    -p system_prompt:="<s>[SYSTEM_PROMPT]Answer like a pirate whould answer[/SYSTEM_PROMPT]" \
+    -p system_prompt:="<s>[SYSTEM_PROMPT]Answer like a pirate would answer[/SYSTEM_PROMPT]" \
     -r llm_in:=stt_out \
     -r llm_sentence:=stt_topic
 ```
