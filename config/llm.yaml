@@ -16,7 +16,7 @@
     tools_prompt_repeat: false
     top_k: 40
     top_p: 0.9
-    prompt: "{0}\n"
+    prompt: "# {0}\n"
     stop_tokens:
     - stop
     - shutup
