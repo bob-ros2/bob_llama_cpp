@@ -93,8 +93,12 @@ ros2 run bob_llama_cpp llm \
     -p temperature:=0.9 \
     -p model_id:=mistralai/Mistral-Small-24B-Instruct-2501 \
     -p system_prompt:="<s>[SYSTEM_PROMPT]Answer like a pirate would answer[/SYSTEM_PROMPT]" \
-    -r llm_in:=stt_out \
-    -r llm_sentence:=stt_topic
+    -r llm_in:=stt_out_topic \
+    -r llm_sentence:=tts_in_topic
+# want to connect TTS and/or STT? Then check out these packages:
+# https://github.com/bob-ros2/rosspeaks
+# https://github.com/bob-ros2/bob_whisper_cpp
+# or https://github.com/bob-ros2/voskros
 ```
 
 ### Node Parameter
