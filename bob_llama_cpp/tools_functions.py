@@ -147,7 +147,7 @@ def remember(context: str, limit: int=3):
     try:
         url = os.getenv('TOOL_QDRANT_URL', 'http://localhost:6333')
         query_model = os.getenv('TOOL_QDRANT_MODEL', 'nomic-ai/nomic-embed-text-v1')
-        collection = os.getenv('    ', 'memo_embedder')
+        collection = os.getenv('TOOL_QDRANT_COLLECTION', 'memo_embedder')
 
         qdrant_client = qdrant_client or QdrantClient(url, prefer_grpc=True)
         qdrant_client.set_model(query_model)
