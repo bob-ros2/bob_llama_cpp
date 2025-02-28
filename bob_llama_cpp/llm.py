@@ -67,7 +67,7 @@ class LlmNode(BaseNode):
 
                 ('prompt', os.getenv('LLM_PROMPT', "{0}\n"),
                 ParameterDescriptor(description=
-                'Prompt format, default: {0}\\n')),
+                'Prompt format. Environment variable LLM_PROMPT. Default: {0}\\n')),
 
                 ('system_prompt', os.getenv('LLM_SYSTEM_PROMPT', ''), 
                 ParameterDescriptor(description=
@@ -75,7 +75,7 @@ class LlmNode(BaseNode):
                 'be set automatically as well and if the context size exceeds '
                 'llama.cpp will try to keep this system prompt. Further details '
                 'how n_keep works can be found in the llama.cpp server documentation. '
-                'Default: \'\'')),
+                'Environment variable LLM_SYSTEM_PROMPT. Default: \'\'')),
 
                 ('initial_messages', os.getenv('LLM_INITIAL_MESSAGES', ''), 
                 ParameterDescriptor(description=
@@ -83,56 +83,70 @@ class LlmNode(BaseNode):
                 'The list can be provided as file or directly as JSON list. '
                 'The dicts has to contain the used role and content items. '
                 'The initial messages are processed using the according chat template, '
-                'and added to the history. Default: \'\'')),
+                'and added to the history. Environment variable LLM_INITIAL_MESSAGES. '
+                'Default: \'\'')),
 
                 ('chat_history', os.getenv('LLM_CHAT_HISTORY', 'true') == 'true', 
                 ParameterDescriptor(description=
-                'Wether to use a chat history for the conversation or not, default: true')),
+                'Wether to use a chat history for the conversation or not. Environment '
+                'variable LLM_CHAT_HISTORY. Default: true')),
 
                 ('api_url', os.getenv('LLM_API_URL', 'http://localhost:8000'), 
                 ParameterDescriptor(description=
-                'The API url of the llama.cpp server, default: http://localhost:8000')),
+                'The API url of the llama.cpp server. Environment '
+                'variable LLM_API_URL. Default: http://localhost:8000')),
+
+                ('api_key', os.getenv('LLM_API_KEY', 'no-key'), 
+                ParameterDescriptor(description=
+                "The API key, if it's needed to authorize. Environment "
+                "variable LLM_API_KEY. Default: 'no-key'")),
 
                 ('temperature', float(os.getenv('LLM_TEMPERATURE', '0.1')), 
                 ParameterDescriptor(description=
-                'Adjust the randomness of the generated text, default: 0.1')),
+                'Adjust the randomness of the generated text. Environment '
+                'variable LLM_TEMPERATURE. Default: 0.1')),
 
                 ('n_predict', int(os.getenv('LLM_N_PREDICT', '-1')), 
                 ParameterDescriptor(description=
                 'Set the number of tokens to predict when generating text. '
-                'Adjusting this value can influence the length of the generated text. Default: -1')),
+                'Adjusting this value can influence the length of the generated text. '
+                'Environment variable LLM_N_PREDICT. Default: -1')),
 
                 ('chat_template', os.getenv('LLM_CHAT_TEMPLATE', ''), 
                 ParameterDescriptor(description=
                 'not used yet')),
 
-                ('stop_tokens', os.getenv('LLM_STOP_TOKENS', 'shutup').split(), 
+                ('stop_tokens', os.getenv('LLM_STOP_TOKENS', 'stop shutup').split(), 
                 ParameterDescriptor(description=
                 'If one of the stop tokens are received in the llm input topic '
-                'a running generator will be aborted.')),
+                'a running generator will be aborted. Environment variable LLM_STOP_TOKENS. '
+                "Default: 'stop shutup'")),
 
                 ('top_k', int(os.getenv('LLM_TOP_K', '40')), 
                 ParameterDescriptor(description=
-                'Limit the next token selection to the K most probable tokens, default: 40')),
+                'Limit the next token selection to the K most probable tokens. Environment ' 
+                'variable LLM_TOP_K. Default: 40')),
 
                 ('top_p', float(os.getenv('LLM_TOP_P', '0.9')), 
                 ParameterDescriptor(description=
                 'Limit the next token selection to a subset of tokens '
-                'with a cumulative probability above a threshold P, default: 0.9')),
+                'with a cumulative probability above a threshold P. Environment variable ' 
+                'LLM_TOP_P. Default: 0.9')),
 
                 ('min_p', float(os.getenv('LLM_MIN_P', '0.05')), 
                 ParameterDescriptor(description=
-                'Sets a minimum base probability threshold for token selection, default: 0.1')),
+                'Sets a minimum base probability threshold for token selection. Environment ' 
+                'variable LLM_MIN_P. Default: 0.1')),
 
                 ('repeat_penalty', float(os.getenv('LLM_REPEAT_PENALTY', '1.0')), 
                 ParameterDescriptor(description=
-                'Control the repetition of token sequences in the generated text, '
-                'default: 1.0, 1.0 = disabled.')),
+                'Control the repetition of token sequences in the generated text. Environment ' 
+                'variable LLM_REPEAT_PENALTY. Default: 1.0, 1.0 = disabled.')),
 
                 ('repeat_last_n', int(os.getenv('LLM_REPEAT_LAST_N', '64')), 
                 ParameterDescriptor(description=
-                'Last n tokens to consider for penalizing repetition, '
-                'default: 64, 0 = disabled, -1 = ctx-size')),
+                'Last n tokens to consider for penalizing repetition. Environment variable '
+                'LLM_REPEAT_LAST_N. Default: 64, 0 = disabled, -1 = ctx-size')),
 
                 ('n_keep', int(os.getenv('LLM_N_KEEP', '-1')),
                 ParameterDescriptor(description=
@@ -141,14 +155,16 @@ class LlmNode(BaseNode):
                 'By default, this value is set to 0 (meaning no tokens are kept). '
                 'Use -1 to retain all tokens from the initial prompt. '
                 'When the system_prompt parameter is set the length will be determined '
-                'from the token count by using the llama.cpp server tokenizer endoint. Default: -1')),
+                'from the token count by using the llama.cpp server tokenizer endoint. '
+                'Environment variable LLM_N_KEEP. Default: -1')),
 
                 ('model_id', os.getenv('LLM_MODEL_ID', ''), 
                 ParameterDescriptor(description=
                 'The base Huggingface model_id to be used. '
                 'It will be used to apply the according transformers chat template. '
-                'This will also be used to auto generate a tools call system prompt if the model supports it and '
-                'if also tools_module parameter was configured. Default: \'\'')),
+                'This will also be used to auto generate a tools call system prompt if the model '
+                'supports it and if also tools_module parameter was configured. Environment '
+                'variable LLM_MODEL_ID. Default: \'\'')),
 
                 ('tools_module', os.getenv('LLM_TOOLS_MODULE', ''), 
                 ParameterDescriptor(description=
@@ -156,12 +172,14 @@ class LlmNode(BaseNode):
                 'description need to follow the google standard in order to work with HF chat template. '
                 'Also the type definitions are important in order to produce later the tool call dict. '
                 'All contained global python functions are treated as potential tool calls. '
-                'See an example in the config folder of this package. Default: \'\'')),
+                'See an example in the config folder of this package. Environment variable '
+                'LLM_TOOLS_MODULE. Default: \'\'')),
 
                 ('eof_indicator', os.getenv('LLM_EOF_INDICATOR', ''), 
                 ParameterDescriptor(description=
                 'EOF indicator to use. This indicator will be send after the last token happened. '
-                'This in usefull if in generator mode to identify the end of the response. Default: \'\''))
+                'This in usefull if in generator mode to identify the end of the response. ' 
+                'Environment variable LLM_EOF_INDICATOR. Default: \'\''))
             ])
 
         self.system_prompt = None
@@ -334,7 +352,7 @@ class LlmNode(BaseNode):
         self.get_logger().debug(f'jsonfy: {j}')
         return j
 
-    def generate(self, prompt: str) -> str:
+    def generate(self, prompt: str):
         """
         Generate streaming completion
         """
@@ -356,7 +374,10 @@ class LlmNode(BaseNode):
         try:
             with requests.Session().post(
                 self.get_parameter('api_url').value+'/completion', 
-                headers = {"Content-Type": "application/json"}, 
+                headers = {
+                    "Content-Type": "application/json",
+                    "Authorization": 
+                        'Bearer '+self.get_parameter("api_key").value},
                 stream = True, 
                 json = body) as resp:
                 for line in resp.iter_lines():

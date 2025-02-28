@@ -103,13 +103,17 @@ ros2 run bob_llama_cpp llm \
 
 ### Node Parameter
 
+> **Parameter name**: api_key\
+> **Type**: string\
+> **Description**: The API key, if it's needed to authorize. Environment variable LLM_API_KEY. Default: 'no-key'
+
 > **Parameter name**: api_url\
 > **Type**: string\
-> **Description**: The API url of the llama.cpp server, default: http://localhost:8000
+> **Description**: The API url of the llama.cpp server. Environment variable LLM_API_URL. Default: http://localhost:8000
 
 > **Parameter name**: chat_history\
 > **Type**: boolean\
-> **Description**: Wether to use a chat history for the conversation or not, default: true
+> **Description**: Wether to use a chat history for the conversation or not. Environment variable LLM_CHAT_HISTORY. Default: true
 
 > **Parameter name**: chat_template\
 > **Type**: string\
@@ -117,66 +121,64 @@ ros2 run bob_llama_cpp llm \
 
 > **Parameter name**: eof_indicator\
 > **Type**: string\
-> **Description**: EOF indicator to use. This indicator will be send after the last token happened. This in usefull if in generator mode to identify the end of the response. Default: ''
+> **Description**: EOF indicator to use. This indicator will be send after the last token happened. This in usefull if in generator mode to identify the end of the response. Environment variable LLM_EOF_INDICATOR. Default: ''
 
 > **Parameter name**: initial_messages\
 > **Type**: string\
-> **Description**: Initial conversation JSON list of dictionaries. The list can be provided as file or directly as JSON list. The dicts has to contain the used role and content items. The initial messages are processed using the according chat template, and added to the history. Default: ''
+> **Description**: Initial conversation JSON list of dictionaries. The list can be provided as file or directly as JSON list. The dicts has to contain the used role and content items. The initial messages are processed using the according chat template, and added to the history. Environment variable LLM_INITIAL_MESSAGES. Default: ''
 
 > **Parameter name**: min_p\
 > **Type**: double\
-> **Description**: Sets a minimum base probability threshold for token selection, default: 0.1
+> **Description**: Sets a minimum base probability threshold for token selection. Environment variable LLM_MIN_P. Default: 0.1
 
 > **Parameter name**: model_id\
 > **Type**: string\
-> **Description**: The base Huggingface model_id to be used. It will be used to apply the according transformers chat template. This will also be used to auto generate a tools call system prompt if the model supports it and if also tools_module parameter was configured. Default: ''
+> **Description**: The base Huggingface model_id to be used. It will be used to apply the according transformers chat template. This will also be used to auto generate a tools call system prompt if the model supports it and if also tools_module parameter was configured. Environment variable LLM_MODEL_ID. Default: ''
 
 > **Parameter name**: n_keep\
 > **Type**: integer\
-> **Description**: Specify the number of tokens from the initial prompt to retain when the model resets its internal context. By default, this value is set to 0 (meaning no tokens are kept). Use -1 to retain all tokens from the initial prompt. When the system_prompt parameter is set the length will be determined from the token count by using the llama.cpp server tokenizer endoint. Default: -1
+> **Description**: Specify the number of tokens from the initial prompt to retain when the model resets its internal context. By default, this value is set to 0 (meaning no tokens are kept). Use -1 to retain all tokens from the initial prompt. When the system_prompt parameter is set the length will be determined from the token count by using the llama.cpp server tokenizer endoint. Environment variable LLM_N_KEEP. Default: -1
 
 > **Parameter name**: n_predict\
 > **Type**: integer\
-> **Description**: Set the number of tokens to predict when generating text. Adjusting this value can influence the length of the generated text. Default: -1
+> **Description**: Set the number of tokens to predict when generating text. Adjusting this value can influence the length of the generated text. Environment variable LLM_N_PREDICT. Default: -1
 
 > **Parameter name**: prompt\
 > **Type**: string\
-> **Description**: Prompt format, default: {0}\n
+> **Description**: Prompt format. Environment variable LLM_PROMPT. Default: {0}\n
 
 > **Parameter name**: repeat_last_n\
 > **Type**: integer\
-> **Description**: Last n tokens to consider for penalizing repetition, default: 64, 0 = disabled, -1 = ctx-size
+> **Description**: Last n tokens to consider for penalizing repetition. Environment variable LLM_REPEAT_LAST_N. Default: 64, 0 = disabled, -1 = ctx-size
 
 > **Parameter name**: repeat_penalty\
 > **Type**: double\
-> **Description**: Control the repetition of token sequences in the generated text, default: 1.0, 1.0 = disabled.
+> **Description**: Control the repetition of token sequences in the generated text. Environment variable LLM_REPEAT_PENALTY. Default: 1.0, 1.0 = disabled.
 
 > **Parameter name**: stop_tokens\
 > **Type**: string array\
-> **Description**: If one of the stop tokens are received in the llm input topic a running generator will be aborted.
+> **Description**: If one of the stop tokens are received in the llm input topic a running generator will be aborted. Environment variable LLM_STOP_TOKENS. Default: 'stop shutup'
 
 > **Parameter name**: system_prompt\
 > **Type**: string\
-> **Description**: System prompt to set. If provided the n_keep parameter will be set automatically as well and if the context size exceeds llama.cpp will try to keep this system prompt. Further details how n_keep work can be found in the llama.cpp server documentation. Default: ''
+> **Description**: System prompt to set. If provided the n_keep parameter will be set automatically as well and if the context size exceeds llama.cpp will try to keep this system prompt. Further details how n_keep works can be found in the llama.cpp server documentation. Environment variable LLM_SYSTEM_PROMPT. Default: ''
 
 > **Parameter name**: temperature\
 > **Type**: double\
-> **Description**: Adjust the randomness of the generated text, default: 0.1
+> **Description**: Adjust the randomness of the generated text. Environment variable LLM_TEMPERATURE. Default: 0.1
 
 > **Parameter name**: tools_module\
 > **Type**: string\
-> **Description**: Path to the tools function python script. The tool functions and their description need to follow the google standard in order to work with HF chat template. Also the type definitions are important in order to produce later the tool call dict. All contained global python functions are treated as potential tool calls. See an example in the config folder of this package. Default: ''
+> **Description**: Path to the tools function python script. The tool functions and their description need to follow the google standard in order to work with HF chat template. Also the type definitions are important in order to produce later the tool call dict. All contained global python functions are treated as potential tool calls. See an example in the config folder of this package. Environment variable LLM_TOOLS_MODULE. Default: ''
 
 > **Parameter name**: top_k\
 > **Type**: integer\
-> **Description**: Limit the next token selection to the K most probable tokens, default: 40
+> **Description**: Limit the next token selection to the K most probable tokens. Environment variable LLM_TOP_K. Default: 40
 
 > **Parameter name**: top_p\
 > **Type**: double\
-> **Description**: Limit the next token selection to a subset of tokens with a cumulative probability above a threshold P, default: 0.9
+> **Description**: Limit the next token selection to a subset of tokens with a cumulative probability above a threshold P. Environment variable LLM_TOP_P. Default: 0.9
 
-> **Parameter name**: use_sim_time\
-> **Type**: boolean
 
 ### Subscribed Topics
 
