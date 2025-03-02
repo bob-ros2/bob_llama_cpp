@@ -1,4 +1,4 @@
-# ROS Package bob_llama_cpp
+# ROS Package [bob_llama_cpp](https://github.com/bob-ros2/bob_llama_cpp)
 
 This ROS package integrates a LLM chat client with function calling capabilities into [`ROS`](https://ros.org) (Robot Operating System). It needs a running `llama.cpp:server` or other compatible completetion API endpoint in order to work. Additionally it makes use of `Huggingface` `Transformers` and `Autotokenizer` library to apply the model specific chat template.
 
