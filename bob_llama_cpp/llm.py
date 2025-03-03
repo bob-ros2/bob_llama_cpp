@@ -89,7 +89,7 @@ class LlmNode(BaseNode):
                 ('chat_history', int(os.getenv('LLM_CHAT_HISTORY', '-1')), 
                 ParameterDescriptor(description=
                 'Chat history behaviour. -1: unlimited, 0: no history, >0: limit. '
-                'Environment variable LLM_CHAT_HISTORY. Default: true')),
+                'Environment variable LLM_CHAT_HISTORY. Default: -1')),
 
                 ('api_url', os.getenv('LLM_API_URL', 'http://localhost:8000'), 
                 ParameterDescriptor(description=

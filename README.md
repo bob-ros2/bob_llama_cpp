@@ -118,7 +118,7 @@ ros2 run bob_llama_cpp llm \
 
 > **Parameter name**: chat_history\
 > **Type**: integer\
-> **Description**: Chat history behaviour. -1: unlimited, 0: no history, >0: limit. Environment variable LLM_CHAT_HISTORY. Default: true
+> **Description**: Chat history behaviour. -1: unlimited, 0: no history, >0: limit. Environment variable LLM_CHAT_HISTORY. Default: -1
 
 > **Parameter name**: chat_template\
 > **Type**: string\
