@@ -86,10 +86,10 @@ class LlmNode(BaseNode):
                 'and added to the history. Environment variable LLM_INITIAL_MESSAGES. '
                 'Default: \'\'')),
 
-                ('chat_history', os.getenv('LLM_CHAT_HISTORY', 'true') == 'true', 
+                ('chat_history', int(os.getenv('LLM_CHAT_HISTORY', '-1')), 
                 ParameterDescriptor(description=
-                'Wether to use a chat history for the conversation or not. Environment '
-                'variable LLM_CHAT_HISTORY. Default: true')),
+                'Chat history behaviour. -1: unlimited, 0: no history, >0: limit. '
+                'Environment variable LLM_CHAT_HISTORY. Default: true')),
 
                 ('api_url', os.getenv('LLM_API_URL', 'http://localhost:8000'), 
                 ParameterDescriptor(description=
@@ -414,7 +414,7 @@ class LlmNode(BaseNode):
                     self.token_handler(prompt_message)
                     self.print(prompt_message)
 
-                    if self.get_parameter("chat_history").value:
+                    if self.get_parameter("chat_history").value != 0:
                         conversation = self.history \
                             + [{'role':'user','content':prompt_message}]
                         prompt_message = prompt_tools.apply_chat_template(
@@ -451,8 +451,13 @@ class LlmNode(BaseNode):
                 self.history += dialog
                 self.publish(self.jsonfy(dialog, prompt_message), self.pub_dialog)
 
+                history_lengh = self.get_parameter("chat_history").value
+                while history_lengh > -1 and len(self.history) > history_lengh: 
+                    self.history.pop(0)
+
                 logging.debug(
-                    f"\033[0;31mself.history:\n{json.dumps(self.history,indent=2)}\n\033[0m")
+                    f"\033[0;31mself.history {len(self.history)}:\n"
+                    f"{json.dumps(self.history,indent=2)}\n\033[0m")
 
                 if prompt_tools.detect_and_process_tool_calls(output):
                     self.queue.append(prompt_tools.generate_tool_results())

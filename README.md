@@ -117,8 +117,8 @@ ros2 run bob_llama_cpp llm \
 > **Description**: The API url of the llama.cpp server. Environment variable LLM_API_URL. Default: http://localhost:8000
 
 > **Parameter name**: chat_history\
-> **Type**: boolean\
-> **Description**: Wether to use a chat history for the conversation or not. Environment variable LLM_CHAT_HISTORY. Default: true
+> **Type**: integer\
+> **Description**: Chat history behaviour. -1: unlimited, 0: no history, >0: limit. Environment variable LLM_CHAT_HISTORY. Default: true
 
 > **Parameter name**: chat_template\
 > **Type**: string\
