@@ -404,7 +404,8 @@ class LlmNode(BaseNode):
                     continue
                 dialog = [{'role': 'user', 'content': prompt}]
 
-                if prompt.startswith('<s>'):
+                if prompt.startswith('<s>') \
+                   or prompt.startswith('<|begin_of_text|>'):
                     prompt_message = prompt
                     #self.token_handler(prompt_message)
                     self.print(prompt_message)
