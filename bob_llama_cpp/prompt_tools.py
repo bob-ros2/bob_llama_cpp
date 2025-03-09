@@ -70,7 +70,7 @@ def generate_tool_results() -> str:
         result_prompt = tokenizer.apply_chat_template(messages, tools=tool_functions.values(), 
             tokenize=False, add_generation_prompt=True)
     else:
-        logging.warn(f"tokenizer not initialized, generating tools results in lama2 format")
+        logging.warning(f"tokenizer not initialized, generating tools results in lama2 format")
         result_prompt = '<s>[TOOL_CALLS] ' + json.dumps([t[0] for t in tool_calls]) + '</s>'
         result_prompt += ''.join(['[TOOL_RESULTS] ' + json.dumps(t[1]) + '[/TOOL_RESULTS] ' 
             for t in tool_calls])
@@ -136,8 +136,9 @@ def detect_and_process_tool_calls(
         global tool_functions
         calls = []
         count = 0
+        rest = parse_tool_calls(text, calls)
         logging.debug(f"detect_and_process_tool_calls: {text}")
-        logging.debug(f"detect_and_process_tool_calls: Rest: " + parse_tool_calls(text, calls))
+        logging.debug(f"detect_and_process_tool_calls: Rest: {rest}")
 
         for tool in calls:
             logging.info(f"detect_and_process_tool_calls: tool {tool}")
