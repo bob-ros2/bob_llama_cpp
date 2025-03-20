@@ -18,11 +18,11 @@
 # Also the type definitions are important here to produce later the tool call dict.
 
 import os
+import re
 import logging
 import requests
 import string
 import random
-import json
 from bob_llama_cpp import prompt_tools
 
 def search_internet(query: str, limit: int=3):
@@ -116,6 +116,7 @@ def grep_url(url: str, filter: str=None):
                 link_list += f"[{link_text}]({href})\n"
         if link_list: 
             text += f"\nLinks contained in the resource behind url:\n{link_list}"
+        text = re.sub(r"(.*)\n\n+(.*)", r"\1\n\n\2", text)
 
     except requests.exceptions.HTTPError as e:
         text = f"An error occured, the provided URL could not be opened! {e}"
