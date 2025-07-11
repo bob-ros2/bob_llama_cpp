@@ -1,8 +1,8 @@
 # ROS Package [bob_llama_cpp](https://github.com/bob-ros2/bob_llama_cpp)
 
-This ROS package integrates a LLM chat client with function calling capabilities into [`ROS`](https://ros.org) (Robot Operating System). It needs a running `llama.cpp:server` or other compatible completetion API endpoint in order to work. Additionally it makes use of `Huggingface` `Transformers` and `Autotokenizer` library to apply the model specific chat template.
+This ROS package integrates a LLM chat client with function calling capabilities into [`ROS`](https://ros.org) (Robot Operating System). It needs a running `llama.cpp:server`. Additionally it makes use of `Huggingface` `Transformers` and `Autotokenizer` library to apply the model specific chat template.
 
-Because this ROS node is so lightweight, it is possible to run multiple LLM clients simultaneously and share the same completion API endpoint. Together with the llama.cpp server, which can also handle parallel requests and shared context, many interesting things like chaining of LLMs can be done. The LLM-ROS node also provides numerous interfaces for further NL processing.
+With this ROS node it is possible to run multiple LLM clients simultaneously and share the same completion API endpoint. Together with the llama.cpp server, which can also handle parallel requests and shared context, many interesting things like chaining of LLMs can be done. The LLM-ROS node also provides numerous interfaces for further NL processing.
 
 **Following features are available in this package**
 * Configurable 
@@ -69,13 +69,13 @@ sudo docker run --gpus all -p 8000:8080 \
 
 ## ROS Node LLM
 
-This ROS node is basically a client for an OpenAI compatible completition API endpoint. It was tested yet only with an own hosted local [llama_cpp server](https://github.com/ggml-org/llama.cpp/tree/master/examples/server#readme). Other completition API server should work as well.
+This ROS node is basically a client which uses the llama.cpp server own completetion endpoint (and `not` the OAI comapatible one which URL starts with /v1). It was tested yet only with an own hosted local [llama_cpp server](https://github.com/ggml-org/llama.cpp/tree/master/examples/server#readme).
 
 ### Dependencies
 There are a couple of dependencies in order to be able to use all available features of this ROS Node. For an overview see [`requirements.txt`](https://github.com/bob-ros2/bob_llama_cpp/blob/main/requirements.txt)
 
 ### Starting the LLM client
-To run the client a completition endpoint must be available. The default url is: http://localhost:8000
+To run the client a completion endpoint must be available. The default url is: http://localhost:8000
 
 ```bash
 # launch the LLM client with a terminal to 
